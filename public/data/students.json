@@ -1,0 +1,15 @@
+[
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "course": "Introduction to Programming"
+    },
+    {
+      "id": 2,
+      "name": "Bob Williams",
+      "email": "bob.williams@example.com",
+      "course": "Web Development"
+    }
+  ]
+  

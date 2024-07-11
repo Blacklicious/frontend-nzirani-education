@@ -1,0 +1,38 @@
+[
+    {
+      "id": 1,
+      "title": "Introduction to Programming",
+      "description": "Learn the basics of programming using Python.",
+      "school": "School of Computer Science",
+      "instructor": "Dr. John Doe"
+    },
+    {
+      "id": 2,
+      "title": "Web Development",
+      "description": "Build modern web applications using HTML, CSS, and JavaScript.",
+      "school": "School of Information Technology",
+      "instructor": "Prof. Jane Smith"
+    },
+    {
+      "id": 3,
+      "title": "Data Science",
+      "description": "An introduction to data analysis and visualization.",
+      "school": "School of Data Science",
+      "instructor": "Dr. Ahmed Musa"
+    },
+    {
+      "id": 4,
+      "title": "Network Security",
+      "description": "Learn about network security principles and practices.",
+      "school": "School of Cybersecurity",
+      "instructor": "Prof. Maria Garcia"
+    },
+    {
+      "id": 5,
+      "title": "Machine Learning",
+      "description": "Understand the basics of machine learning and its applications.",
+      "school": "School of Artificial Intelligence",
+      "instructor": "Dr. Lee Wang"
+    }
+  ]
+  

@@ -1,3 +1,48 @@
+# frontend-nzirani-education
+
+This repository contains the front-end code for the Nzirani Education platform, a modern and interactive educational web application designed to provide high-quality learning experiences. The application is built using Next.js and TypeScript, offering a seamless and efficient user experience.
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [File Structure](#file-structure)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Introduction
+
+Nzirani Education is dedicated to facilitating education through advanced technological solutions. This platform allows users to register for courses, view course details, and interact with instructors. It is built with scalability and performance in mind to ensure a smooth learning experience.
+
+## Features
+
+- User authentication and registration
+- Course listing and detailed view
+- Instructor and student profiles
+- School information and services
+- Responsive design for mobile and desktop
+- Interactive and user-friendly interface
+
+## Technologies Used
+
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [React](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Ant Design](https://ant.design/) for UI components
+
+## Installation
+
+To get started with the project, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/frontend-nzirani-education.git
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
