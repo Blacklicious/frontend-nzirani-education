@@ -1,0 +1,17 @@
+/* AboutUs.module.css */
+.container {
+    min-height: 100vh;
+    background-image: url('/img/Nzirani EDucation2.png');
+    background-size: cover;
+    background-position: center;
+  } 
+.overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 3rem;
+  }
+  
