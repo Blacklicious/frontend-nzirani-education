@@ -5,7 +5,7 @@ export default function Home() {
     <div className="w-[100%] p-4">
       <main className='text-xl'>
         <h1>Bienvenue au Centre de Formation Nzirani</h1>
-        <p>Votre chemin vers l'éducation et la formation technologique.</p>
+        <p>Votre chemin vers l'éducation et la formation.</p>
         <div className=''>
           <Image
             src="/images/hero.jpg"

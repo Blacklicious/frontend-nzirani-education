@@ -1,4 +1,6 @@
 'use client';
+import Image from "next/image";
+
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
@@ -40,22 +42,33 @@ export default function Navbar() {
         <div className='bg-black/90 h-[100%] rounded-lg flex justify-between'>
           <div className='h-[100%] w-[100px] p-2'>
             <Link href="/home">
-              <div className='bg-gray-100 h-[100%] rounded'></div>
+              <div className=' h-[100%] rounded flex items-center'>
+                <Image
+                  src="/img/LogoNziEdu.png"
+                  alt="Centre de Formation Nzirani"
+                  width={100}
+                  height={200}
+                  className="object-contain w-[100%] h-[120%]"
+                />
+              </div>
             </Link>
           </div>
           <div 
-            className='h-[100%] w-[70px] p-2'
+            className='h-[100%] w-[70px] p-3'
             tabIndex={0}
             onClick={handleOnClick}
             ref={menuButtonRef}
           >
-            <div className='bg-gray-100 h-[100%] rounded flex items-center 
-            text-3xl font-extrabold justify-center hover:bg-gray-300'><MenuOutlined /></div>
+            <div className=" border-yellow-500 border-[2px] h-[100%] ring-[2px]
+             ring-green-600 rounded-md">
+              <div className='bg-gray-100/80 border-red-600 border-[2px] h-[100%] rounded-[3px] flex items-center 
+              text-3xl font-extrabold justify-center hover:bg-gray-300'><MenuOutlined /></div>
+            </div>
           </div>
         </div>
       </div>
       {menuOpen && (
-        <div ref={menuRef} className='w-[100%] text-white px-3 pb-2 text-xl'>
+        <div ref={menuRef} className='w-[100%] text-white px-3 pb-2 text-xl  shadow-lg'>
           <ul className='flex flex-col bg-white border-x-[4px] border-b-[4px] p-3 rounded-b-lg text-black'>
             <li className='border-[3px] p-3 mb-3 rounded-lg bg-gray-100'>
               <div className='text-black flex justify-between text-center mb-3'>
@@ -75,22 +88,15 @@ export default function Navbar() {
                   Tableau de bord
                 </div>
               </Link>
-              <Link href="/logout" className='w-[100%]'>
+              <Link href="/logout" className='w-[100%]' onClick={handleOnClick}>
                 <div className='hover:ring-2 rounded py-1 px-2 bg-gray-200 hover:bg-blue-100 text-center'>
                   Déconnexion
                 </div>
               </Link>
             </li>
-            <li>
-              <Link href="/about">
-                <div className='hover:ring-2 rounded py-2 px-4 bg-gray-200 text-black hover:bg-blue-100 mb-3'>
-                  À propos
-                </div>
-              </Link>
-            </li>
             <div>
               <li>
-                <Link href="/schools">
+                <Link href="/schools" onClick={handleOnClick}>
                   <div className='hover:ring-2 rounded py-2 px-4 bg-gray-100 text-black hover:bg-blue-100 mb-3'>
                     Nos Services
                   </div>
@@ -99,7 +105,7 @@ export default function Navbar() {
               <div>
                 <li className='flex space-x-2 my-2 ml-3'>
                   <div className='w-[5%]  text-right'>|-</div>
-                  <Link href="/schools/courses/" className='w-[95%]'>
+                  <Link href="/schools/courses/" className='w-[95%]' onClick={handleOnClick}>
                     <div className='hover:ring-2 rounded py-1 px-2 w-[100%] bg-gray-100 text-black hover:bg-blue-100'>
                       Formations
                     </div>
@@ -107,7 +113,7 @@ export default function Navbar() {
                 </li>
                 <li className='flex space-x-2 mb-3 ml-3'>
                   <div className='w-[5%] text-right'>|-</div>
-                  <Link href="/schools/instructors/" className='w-[94%]'>
+                  <Link href="/schools/instructors/" className='w-[94%]' onClick={handleOnClick}>
                     <div className='hover:ring-2 rounded py-1 px-2 w-[100%] bg-gray-100 text-black hover:bg-blue-100'>
                       Instructeurs
                     </div>
@@ -116,7 +122,14 @@ export default function Navbar() {
               </div>
             </div>
             <li>
-              <Link href="/contact">
+              <Link href="/about"  onClick={handleOnClick}>
+                <div className='hover:ring-2 rounded py-2 px-4 bg-gray-200 text-black hover:bg-blue-100 mb-3'>
+                  Qui sommes nous 
+                </div>
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" onClick={handleOnClick}>
                 <div className='hover:ring-2 rounded py-2 px-4 bg-gray-100 text-black hover:bg-blue-100'>
                   Contact
                 </div>
