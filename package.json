@@ -10,11 +10,15 @@
   },
   "dependencies": {
     "antd": "^5.19.1",
+    "firebase": "^10.12.3",
+    "js-cookie": "^3.0.5",
     "next": "14.2.4",
+    "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

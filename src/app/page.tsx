@@ -1,10 +1,12 @@
 import Image from "next/image";
 import styles from './Landing.module.css';
 import Link from "next/link";
+import Navbar from "./components/Navbar";
 
 export default function Landing() {
   return (
     <div className="w-[100%] p-4">
+      <Navbar />
       <main className='text-xl'>
       <div className={styles.container}>
         <div className={styles.overlay}>

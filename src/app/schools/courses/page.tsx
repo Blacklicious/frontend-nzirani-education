@@ -15,24 +15,36 @@ export default function Courses() {
   }, []);
 
   return (
-    <div className='p-2'>
-      <div className='border-[2px] py-2 px-3 text-xl bg-gray-100 rounded-lg mb-1'>Recherchez</div>
-      <div className='border-[2px] py-1  text-xl bg-white rounded-lg hidden'>
-        <div className='bg-gray-100 h-auto mx-2 py-1 px-2 rounded'> Niveau 1</div>
-        <div className='bg-gray-100 h-auto mx-2 py-1 px-2 rounded'> Niveau 2</div>
+    <div>
+    <div className=''>
+      <div className='mt-4 border-[2px] py-2 px-3 text-xl bg-gray-100 rounded-lg mb-1 hidden'>Recherchez</div>
+      <div className='border-[2px] py-2  text-xl bg-white rounded-lg overflow-x-auto '>
+        <div className='inline-flex'>
+          <div className='bg-gray-100 h-auto mx-2 py-1 px-3 rounded'> Informatique </div>
+          <div className='bg-gray-100 h-auto mx-2 py-1 px-3 rounded'> Robotique </div>
+          <div className='bg-gray-100 h-auto mx-2 py-1 px-3 rounded'> Conception </div>
+        </div>
       </div>
-      <ul className='px-2 flex flex-wrap justify-between'>
+      <ul className=' flex flex-wrap justify-between'>
         {courses.map(course => (
-          <li key={course.id} className='w-[48%] p-4 ring-2 my-3 rounded bg-white text-black '>
+          <li key={course.id} className='w-[48%] my-3 rounded-xl bg-white text-black '>
             <Link href={`/schools/courses/${course.id}`}>
-              <div>{course.title}</div>
+              <div className='w-[100%] bg-white h-[100%] rounded-xl p-2'>
+                <div className='bg-gray-100 shadow-md h-[140px] rounded-lg'></div>
+                <div className='px-1 py-2 text-sm'>
+                  <div className='w-[100%] font-semibold my-1'>{course.title}</div>
+                  <div className='flex justify-between'>
+                    <div>{course.school}</div>
+                    <div>{course.instructor}</div>
+                  </div>
+                </div>
+              </div>
             </Link>
-            <p>{course.description}</p>
-            <p><strong>School:</strong> {course.school}</p>
-            <p><strong>Instructor:</strong> {course.instructor}</p>
           </li>
         ))}
       </ul>
+      
+    </div>
     </div>
   );
 }

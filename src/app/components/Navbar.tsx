@@ -1,17 +1,35 @@
 'use client';
+
 import Image from "next/image";
-
-
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import {MenuOutlined} from '@ant-design/icons';
+import { useRouter } from 'next/navigation';
+import Login from "./Login";
+import Signup from "./SignUp";
+import Cookies from 'js-cookie';
+
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [signupForm, setSignupForm] = useState(false);
+  const [loginForm, setLoginForm] = useState(true);
   const menuButtonRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [user, setUser] = useState<any>(null);
+  const router = useRouter();
+
 
   const handleOnClick = () => {
     setMenuOpen(!menuOpen);
+  };
+  const OnClickLogin = () => {
+    setLoginForm(!loginForm);
+    setSignupForm(!signupForm);
+  };
+  const OnClickSignup = () => {
+    setSignupForm(!signupForm);
+    setLoginForm(!loginForm);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -36,9 +54,55 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const accessToken = Cookies.get('access_token');
+        if (!accessToken) {
+          setUser(null);
+          return;
+        }
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user/`, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error('Failed to fetch user:', error);
+        setUser(null);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  const logout = async () => {
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/logout/`, {
+        method: 'POST',
+      });
+
+      Cookies.remove('access_token');
+      Cookies.remove('refresh_token');
+      setUser(null);
+      router.push('/login'); // Redirect to login page after successful logout
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
   return (
     <nav>
-      <div className='w-[100] h-[90px] mb-[1px] px-2'>
+      <div className='w-[100] h-[90px] mb-[1px] px-3'>
         <div className='bg-black/90 h-[100%] rounded-lg flex justify-between'>
           <div className='h-[100%] w-[100px] p-2'>
             <Link href="/home">
@@ -71,28 +135,35 @@ export default function Navbar() {
         <div ref={menuRef} className='w-[100%] text-white px-3 pb-2 text-xl  shadow-lg'>
           <ul className='flex flex-col bg-white border-x-[4px] border-b-[4px] p-3 rounded-b-lg text-black'>
             <li className='border-[3px] p-3 mb-3 rounded-lg bg-gray-100'>
-              <div className='text-black flex justify-between text-center mb-3'>
-                <Link href="/authentication" className='w-[50%]'>
-                  <div className='hover:ring-2 rounded py-1 px-2 bg-gray-200 hover:bg-blue-100'>
-                    Identification
+            {user ? (
+              <>
+                <Link href="/dashboard" className='w-[100%]'>
+                  <div className='hover:ring-2 rounded py-1 px-2 bg-gray-200 hover:bg-blue-100 text-center mb-3'>
+                    Tableau de bord
                   </div>
                 </Link>
-                <Link href="/registration" className='w-[45%]'>
-                  <div className='hover:ring-2 rounded py-1 px-2 bg-gray-200 hover:bg-blue-100'>
-                    Inscription
+                <div className='w-[100%]' onClick={logout}>
+                  <div className='hover:ring-2 rounded py-1 px-2 bg-gray-200 hover:bg-blue-100 text-center'>
+                    Déconnexion
                   </div>
-                </Link>
+                </div>
+              </>
+            ) : (
+              <div className=' rounded-lg bg-gray-100'>
+                <div className='text-black flex flex-wrap justify-between text-center'>
+                    <div className='w-[49%] hover:ring-2 rounded py-1 px-2 bg-white hover:bg-blue-100'
+                      onClick={OnClickLogin}>
+                      Identification
+                    </div>
+                  <div className='w-[49%] hover:ring-2 rounded py-1 px-2 bg-white hover:bg-blue-100'
+                      onClick={OnClickSignup}>
+                      Inscription
+                    </div>
+                  {loginForm && (< Login />)}
+                  {signupForm && (< Signup/>)}
+                </div>
               </div>
-              <Link href="/dashboard" className='w-[100%]'>
-                <div className='hover:ring-2 rounded py-1 px-2 bg-gray-200 hover:bg-blue-100 text-center mb-3'>
-                  Tableau de bord
-                </div>
-              </Link>
-              <Link href="/logout" className='w-[100%]' onClick={handleOnClick}>
-                <div className='hover:ring-2 rounded py-1 px-2 bg-gray-200 hover:bg-blue-100 text-center'>
-                  Déconnexion
-                </div>
-              </Link>
+            )}
             </li>
             <div>
               <li>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Navbar from '../components/Navbar';
 
 export default function Schools() {
   const [schools, setSchools] = useState([]);
@@ -17,8 +18,8 @@ export default function Schools() {
 
   return (
     <div>
-      <h1>Schools List</h1>
-      <ul>
+      <Navbar />
+      <ul className='mt-[20px]'>
         {schools.map(school => (
           <li key={school.id}>
             <Link href={`/schools/${school.id}`}>

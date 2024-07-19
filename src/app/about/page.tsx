@@ -1,9 +1,12 @@
 import React from 'react';
 import styles from './AboutUs.module.css';
 import Image from "next/image";
+import Navbar from '../components/Navbar';
 
 export default function AboutUs() {
   return (
+    <div>
+    <Navbar />
     <div className='p-3 rounded-lg'>
     <div className={styles.container}>
       <div className={styles.overlay}>
@@ -90,7 +93,12 @@ export default function AboutUs() {
               />
           </div>
         </div>
+        <div className='bg-black/60 p-4 rounded-lg mt-6  text-2xl font-semibold '>
+          Nos Partenaires
+        </div>
+        <div className='bg-black/60 p-4 rounded-lg mt-6 '> </div>
       </div>
+    </div>
     </div>
     </div>
   );
