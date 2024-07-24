@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Navbar from '../components/Navbar';
 
 export default function Schools() {
   const [schools, setSchools] = useState([]);
@@ -18,7 +17,6 @@ export default function Schools() {
 
   return (
     <div>
-      <Navbar />
       <ul className='mt-[20px]'>
         {schools.map(school => (
           <li key={school.id}>

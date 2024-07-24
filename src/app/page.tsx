@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from './Landing.module.css';
 import Link from "next/link";
-import Navbar from "./components/Navbar";
+import Navbar from "../components/Navbar";
 
 export default function Landing() {
   return (

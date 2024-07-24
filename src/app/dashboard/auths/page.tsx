@@ -29,7 +29,7 @@ const Login = () => {
       Cookies.set('access_token', data.access, { secure: true, sameSite: 'Lax' });
       Cookies.set('refresh_token', data.refresh, { secure: true, sameSite: 'Lax' });
 
-      router.push('/dashboard'); // Redirect to dashboard after successful login
+      router.push('/dashboard/student'); // Redirect to dashboard after successful login
     } catch (error) {
       console.error('Unexpected error:', error);
     }

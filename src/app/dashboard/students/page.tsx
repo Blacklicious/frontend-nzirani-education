@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Courses from '../../home/courses/page';
 
-const Dashboard = () => {
+const StudentDashboard = () => {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
@@ -125,42 +126,9 @@ const Dashboard = () => {
           </div>
           <div>
             list de toute les cours
-            <div className='flex flex-wrap justify-between space-y-3'>
-              <div className='w-[49%] bg-white h-[100%] rounded-xl p-2 mt-3'>
-                <div className='bg-gray-100 shadow-md h-[140px] rounded-lg'></div>
-                <div className='px-1 py-2 text-sm'>
-                  <div>title</div>
-                  <div className='flex justify-between'>
-                    <div>14 modules</div>
-                    <div>price</div>
-                  </div>
-                </div>
-              </div>
-              <div className='w-[49%] bg-white h-[100%] rounded-xl p-2'>
-                <div className='bg-gray-100 shadow-md h-[140px] rounded-lg'></div>
-                <div className='px-1 py-3 text-sm'>
-                  <div>title</div>
-                  <div>14 modules</div>
-                  <div>price</div>
-                </div>
-              </div>
-              <div className='w-[49%] bg-white h-[100%] rounded-xl p-2'>
-                <div className='bg-gray-100 shadow-md h-[140px] rounded-lg'></div>
-                <div className='px-1 py-2 text-sm'>
-                  <div>title</div>
-                  <div>14 modules</div>
-                  <div>price</div>
-                </div>
-              </div>
-              <div className='w-[49%] bg-white h-[100%] rounded-xl p-2'>
-                <div className='bg-gray-100 shadow-md h-[140px] rounded-lg'></div>
-                <div className='px-1 py-2 text-sm'>
-                  <div>title</div>
-                  <div>14 modules</div>
-                  <div>price</div>
-                </div>
-              </div>
-            </div>
+            <div className='flex flex-wrap justify-between p-2'>
+              < Courses />
+            </div>  
           </div>
         </div>
       ) : (
@@ -170,4 +138,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default StudentDashboard;

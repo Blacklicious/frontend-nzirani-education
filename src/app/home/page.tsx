@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Courses from "../schools/courses/page";
-import Navbar from "../components/Navbar";
+import Courses from "../home/courses/page";
+import Navbar from "../../components/Navbar";
 
 export default function Home() {
   return (
@@ -19,26 +19,26 @@ export default function Home() {
           </div> 
         </div>
         <div className=" mt-6 mb-4">
-          <div className="h-[180px] w-[100%] bg-blue-800 rounded-lg flex  text-white">
-            <div className="w-[35%] text-[15px] p-2  text-center">
+          <div className="h-[100%] w-[100%] bg-gray-600 rounded-xl flex justify-between text-white">
+            <div className="w-[35%] text-[15px] p-2 flex flex-wrap justify-center items-center text-center">
               <div>Votre chemin vers l'éducation et la formation.</div>
-              <div className="mt-3 bg-gray-100 rounded text-gray-500 ">button</div>
+              <div className="mt-1 w-[100%] bg-gray-100 rounded text-gray-500 ">Inscription</div>
             </div>
-            <div className='bg-gray-200/50 w-[64%] rounded '>
+            <div className='bg-gray-200/50 w-[64%] rounded flex items-center '>
               <Image
-                src="/images/hero.jpg"
+                src="/img/Nzi-Edu-hero.png"
                 alt="Centre de Formation Nzirani"
                 width={800}
                 height={400}
-                className="h-[100%]"
+                className="rounded-r-xl"
               />
             </div>
           </div>
         </div> 
         <section className=''>
-          <div className="text-xl font-semibold">Nos Recommendation</div>
-          <div className="h-[120px] w-[100%] bg-blue-800 rounded-lg p-2 flex
-           justify-between my-2">
+          <div className="text-xl font-semibold hidden">Nos Recommendation</div>
+          <div className="h-[120px] w-[100%] bg-blue-800 rounded-lg p-2 hidden
+           justify-between my-2 ">
             <div className="h-[100%] w-[25%] bg-gray-200 border-[20px] broder-white rounded"></div>
             <div className="h-[100%] w-[74%] px-2 text-white flex flex-col justify-between"> 
               <div>
@@ -57,7 +57,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="mt-6"> Les cours</div>
           <div>
             <Courses />
           </div>
