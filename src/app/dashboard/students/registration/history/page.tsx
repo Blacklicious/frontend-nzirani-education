@@ -1,4 +1,3 @@
-// Fixed version of EducationDetailsSection.tsx
 'use client';
 
 import { useState } from 'react';
@@ -6,8 +5,25 @@ import { useRouter } from 'next/navigation';
 import { Form, Button, Input, DatePicker } from 'antd';
 import moment from 'moment';
 
+interface EducationYear {
+  school: string;
+  start_month: string;
+  end_month: string;
+  average_grade: string;
+}
+
+interface FormData {
+  kindergarten: EducationYear[];
+  primary_school: EducationYear[];
+  middle_school: EducationYear[];
+  high_school: EducationYear[];
+  professional_school: EducationYear[];
+  college: EducationYear[];
+  university: EducationYear[];
+}
+
 const EducationDetailsPage = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     kindergarten: [],
     primary_school: [],
     middle_school: [],
@@ -23,28 +39,24 @@ const EducationDetailsPage = () => {
     const { name, value } = e.target || e;
     const [field, index, subfield] = name.split('_');
 
-    if (subfield) {
-      setFormData((prevData) => {
-        const updatedField = [...(prevData[field] || [])];
-        updatedField[Number(index) - 1] = {
-          ...updatedField[Number(index) - 1],
-          [subfield]: value
-        };
-        return {
-          ...prevData,
-          [field]: updatedField
-        };
-      });
-    } else {
-      setFormData((prevData) => ({ ...prevData, [name]: value }));
-    }
+    setFormData((prevData) => {
+      const updatedField = [...(prevData[field as keyof FormData] || [])];
+      updatedField[Number(index) - 1] = {
+        ...updatedField[Number(index) - 1],
+        [subfield]: value
+      };
+      return {
+        ...prevData,
+        [field]: updatedField
+      };
+    });
   };
 
   const handleDateChange = (date: any, dateString: string, name: string) => {
     const [field, index, subfield] = name.split('_');
 
     setFormData((prevData) => {
-      const updatedField = [...(prevData[field] || [])];
+      const updatedField = [...(prevData[field as keyof FormData] || [])];
       updatedField[Number(index) - 1] = {
         ...updatedField[Number(index) - 1],
         [subfield]: dateString
@@ -55,7 +67,12 @@ const EducationDetailsPage = () => {
       };
     });
   };
-
+  const handleSubmit = async () => {
+    // Store data in sessionStorage to be used in next steps
+    sessionStorage.setItem('studentInfo', JSON.stringify(formData));
+    router.push('/dashboard/students/registration/health');
+  };
+  /*
   const handleSubmit = async () => {
     const personalInfo = JSON.parse(sessionStorage.getItem('studentInfo') || '{}');
     const relativesInfo = JSON.parse(sessionStorage.getItem('studentRelatives') || '{}');
@@ -81,16 +98,16 @@ const EducationDetailsPage = () => {
     } catch (error) {
       console.error('Registration error:', error);
     }
-  };
+  }; */
 
-  const addYear = (level: string) => {
+  const addYear = (level: keyof FormData) => {
     setFormData((prevData) => ({
       ...prevData,
       [level]: [...prevData[level], { school: '', start_month: '', end_month: '', average_grade: '' }],
     }));
   };
 
-  const removeYear = (level: string, index: number) => {
+  const removeYear = (level: keyof FormData, index: number) => {
     setFormData((prevData) => ({
       ...prevData,
       [level]: prevData[level].filter((_, i) => i !== index),
@@ -108,66 +125,69 @@ const EducationDetailsPage = () => {
   ];
 
   return (
-    <div className="container mx-auto px-2 py-8 bg-black/10 w-[100%]">
+    <div className="container mx-auto px-3 py-8 bg-black/10 w-[100%] text-black">
       <h1 className="text-3xl font-bold mb-4">Education Details</h1>
       <Form onFinish={handleSubmit} layout="vertical">
         {educationLevels.map(({ key, label }) => (
-          <div key={key} className="mb-4">
-            <h3 className="text-lg font-semibold mb-2">{label}</h3>
-            {formData[key].map((_, index) => (
-              <div key={`${key}_year_${index + 1}`} className="mb-4">
-                <h4 className="text-md font-medium mb-2">{`Year ${index + 1}`}</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Form.Item name={`${key}_${index + 1}_start_month`}>
+          <div key={key} className="mb-4 p-2 bg-black/60 rounded-lg">
+            <h3 className="text-lg font-bold px-2 mb-2 bg-white/90 rounded-md">{label}</h3>
+            {formData[key as keyof FormData].map((_, index) => (
+              <div key={`${key}_year_${index + 1}`} className="my-2 bg-white/20 px-2 py-1 h-[118px] rounded-lg ">
+                <div className="text-lg pl-2 pt-1 mb-[7px] text-white font-bold flex justify-between items-center h-[30px]">
+                  {`Année ${index + 1}`} 
+                  <Button type="link" onClick={() => removeYear(key as keyof FormData, index)} 
+                    className="bg-red-500 h-[100%] text-white font-medium">Supprimer</Button>
+                </div>
+                <div className='flex justify-between w-[100%] h-[30px] mb-[6px]'>
+                  <Form.Item name={`${key}_${index + 1}_start_month`} className='w-[49%]'>
                     <DatePicker
                       picker="month"
-                      placeholder="Start Month"
-                      value={formData[key]?.[index]?.start_month ? moment(formData[key][index].start_month) : null}
+                      placeholder="Debut de l'année "
+                      value={formData[key as keyof FormData][index]?.start_month ? moment(formData[key as keyof FormData][index].start_month) : null}
                       onChange={(date, dateString) => handleDateChange(date, dateString, `${key}_${index + 1}_start_month`)}
-                      style={{ width: '100%', height: '40px' }}
+                      style={{ width: '100%', height: '30px' }}
                     />
                   </Form.Item>
-                  <Form.Item name={`${key}_${index + 1}_end_month`}>
+                  <Form.Item name={`${key}_${index + 1}_end_month`} className='w-[49%]'>
                     <DatePicker
                       picker="month"
-                      placeholder="End Month"
-                      value={formData[key]?.[index]?.end_month ? moment(formData[key][index].end_month) : null}
+                      placeholder="Fin de l'année"
+                      value={formData[key as keyof FormData][index]?.end_month ? moment(formData[key as keyof FormData][index].end_month) : null}
                       onChange={(date, dateString) => handleDateChange(date, dateString, `${key}_${index + 1}_end_month`)}
-                      style={{ width: '100%', height: '40px' }}
+                      style={{ width: '100%', height: '30px' }}
                     />
                   </Form.Item>
-                  <Form.Item name={`${key}_${index + 1}_school`} className="col-span-2">
+                </div>
+                <div className='flex justify-between mt-1'>
+                  <Form.Item name={`${key}_${index + 1}_school`} className="w-[59%]">
                     <Input
-                      placeholder="School"
+                      placeholder="Nom de l'etaablissement"
                       name={`${key}_${index + 1}_school`}
-                      value={formData[key]?.[index]?.school || ''}
+                      value={formData[key as keyof FormData][index]?.school || ''}
                       onChange={handleChange}
-                      style={{ width: '100%', height: '40px' }}
+                      style={{ width: '100%', height: '30px' }}
                     />
-                  </Form.Item>
-                  <Form.Item name={`${key}_${index + 1}_average_grade`} className="col-span-2 md:col-span-1">
-                    <Input
-                      placeholder="Average Grade"
-                      name={`${key}_${index + 1}_average_grade`}
-                      value={formData[key]?.[index]?.average_grade || ''}
-                      onChange={handleChange}
-                      style={{ width: '100%', height: '40px' }}
-                    />
-                  </Form.Item>
-                  <Button type="primary" danger onClick={() => removeYear(key, index)}>
-                    Remove
-                  </Button>
+                    </Form.Item>
+                    <Form.Item name={`${key}_${index + 1}_average_grade`} className="w-[39%]">
+                      <Input
+                        placeholder="Moyenne Générale" 
+                        name={`${key}_${index + 1}_average_grade`}
+                        value={formData[key as keyof FormData][index]?.average_grade || ''}
+                        onChange={handleChange}
+                        style={{ width: '100%', height: '30px' }}
+                      />
+                    </Form.Item>
                 </div>
               </div>
             ))}
-            <Button type="dashed" onClick={() => addYear(key)} className="w-full">
-              Add Year
+            <Button type="dashed" onClick={() => addYear(key as keyof FormData)} className="w-full">
+              + Ajouter une année scolaire
             </Button>
           </div>
         ))}
         <Form.Item>
           <Button type="primary" htmlType="submit" className="w-full">
-            Submit
+            Continuer
           </Button>
         </Form.Item>
       </Form>
